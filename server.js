@@ -31,13 +31,21 @@ const server = http.createServer(function(req, res){
   const headers = req.headers;
   
   //Get the payload, if any
+  const decoder = new StringDecoder('utf-8');
+  let buffer = '';
+  req.on('data', function(data){
+    buffer += decoder.write(data);
+  });
+  req.on('end', function(){
+    buffer += decoder.end();
+    //Send the response
+    
+    res.end('hello server purple');
+    //Log the request path
+    console.dir({ parseUrl, path, trimedPath, method, queryStringObject, headers, buffer });
+  });
   
   
-  //Send the response
-    console.dir({ parseUrl, path, trimedPath, method, queryStringObject, headers });
-  res.end('hello server purple');
-  
-  //Log the request path
   
   
 });
