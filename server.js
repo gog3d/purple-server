@@ -8,6 +8,7 @@
 
 const http = require('http');
 const url = require('url');
+const { StringDecoder } = require('string_decoder');
 
 const PORT = 8000;
 
@@ -20,11 +21,20 @@ const server = http.createServer(function(req, res){
   const path = parseUrl.pathname;
   const trimedPath = path.replace(/^\/+|\/+$/g, '');
   
+  //Get the query string as an object
+  const queryStringObject = parseUrl.query;
+  
   //Get http method
   const method =req.method.toLowerCase();
   
+  //Get the headers as an object
+  const headers = req.headers;
+  
+  //Get the payload, if any
+  
+  
   //Send the response
-    console.dir({ parseUrl, path, trimedPath, method });
+    console.dir({ parseUrl, path, trimedPath, method, queryStringObject, headers });
   res.end('hello server purple');
   
   //Log the request path
